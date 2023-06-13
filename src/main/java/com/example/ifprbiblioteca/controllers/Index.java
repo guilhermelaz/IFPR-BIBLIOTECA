@@ -1,4 +1,4 @@
-package com.example.ifprbiblioteca;
+package com.example.ifprbiblioteca.controllers;
 
 import com.example.ifprbiblioteca.models.Livro;
 import com.example.ifprbiblioteca.repositories.LivroRepository;

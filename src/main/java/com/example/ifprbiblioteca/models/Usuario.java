@@ -2,6 +2,7 @@ package com.example.ifprbiblioteca.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name="usuarios")
@@ -19,6 +20,8 @@ public class Usuario {
     @Column(length = 60, nullable = false)
     private String tipo;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Livro> livrosEmprestados;
 
     public Integer getId() {
         return id;

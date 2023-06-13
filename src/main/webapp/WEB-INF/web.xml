@@ -5,12 +5,12 @@
          version="5.0">
     
     <welcome-file-list>
-        <welcome-file>Index</welcome-file>
+        <welcome-file>controllers/Index</welcome-file>
     </welcome-file-list>
     
     <servlet>
         <servlet-name>Index</servlet-name>
-        <servlet-class>com.example.ifprbiblioteca.Index</servlet-class>
+        <servlet-class>com.example.ifprbiblioteca.controllers.Index</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Index</servlet-name>

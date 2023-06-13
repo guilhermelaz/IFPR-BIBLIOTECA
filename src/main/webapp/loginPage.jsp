@@ -47,7 +47,8 @@
             </div>
             <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
-        <small class="text-muted mt-3">Não tem uma conta? <a href="">Crie uma agora</a>.</small><br>
+        <small class="text-muted mt-3">Não tem uma conta? Peça para um administrador do sistema realizar o cadastro.</small>
+        <!--<small class="text-muted mt-3">Não tem uma conta? <a href="">Crie uma agora</a>.</small><br>-->
     </div>
 </div>
 

@@ -26,7 +26,7 @@ public class LivroRepository {
         return livro;
     }
 
-    public Livro findById(Long id){
+    public Livro findById(Integer id){
 
         Livro livro = entityManager.find(Livro.class, id);
 
@@ -60,6 +60,13 @@ public class LivroRepository {
         transaction.commit();
 
         return livro;
+    }
+
+    public void removeById(int id){
+        transaction.begin();
+        Livro livro = findById(id);
+        entityManager.remove(livro);
+        transaction.commit();
     }
 
     public List<Livro> findAll(){

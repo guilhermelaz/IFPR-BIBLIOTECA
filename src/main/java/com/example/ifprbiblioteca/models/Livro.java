@@ -23,6 +23,10 @@ public class Livro {
     @Enumerated(value = EnumType.STRING)
     private StatusLivro status;
 
+    @ManyToOne
+    @JoinColumn(name="id_usuario")
+    private Usuario usuario;
+
 
     public Integer getId() {
         return id;
@@ -64,6 +68,13 @@ public class Livro {
         this.status = status;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     @Override
     public boolean equals(Object o) {

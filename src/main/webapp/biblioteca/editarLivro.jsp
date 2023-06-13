@@ -21,7 +21,7 @@
     Usuario user = (Usuario) request.getSession().getAttribute("user");
 
     List<StatusLivro> statusLivros = (List<StatusLivro>) request.getAttribute("statusLivros");
-
+    Livro livroSelecionado = (Livro) request.getAttribute("livroSelecionado");
 %>
 
 
@@ -58,23 +58,28 @@
 
     <br>
 
-    <h1><%= "Novo livro." %></h1>
+    <h1><%= "Edição de livro." %></h1>
 
     <br>
 
     <div class="border rounded p-4">
         <h4 class="mb-3"></h4>
-        <form action="/biblioteca/cadastrar-livro" method="POST">
+        <form action="/biblioteca/editar?id=<%=livroSelecionado.getId()%>" method="POST">
             <div class="form-group">
                 <label for="livroNome">Nome do livro:</label>
-                <input type="text" class="form-control" name="livroNome" id="livroNome" placeholder="Nome do livro">
+                <input type="text" class="form-control" name="livroNome" id="livroNome" placeholder="Nome do livro" value="<%= livroSelecionado.getNome() %>">
             </div>
             <br>
             <div class="form-group">
                 <label for="Autor">Autor</label>
-                <select class="custom-select" name="Autor" id="Autor">
+                <select class="custom-select" name="Autor" id="Autor" >
+                        <option selected="selected"><%= livroSelecionado.getAutor().getNome() %></option>
                     <% for (Autor autor : autores) { %>
-                        <option><%= autor.getNome() %></option>
+
+                        <% if (!autor.getNome().equals(livroSelecionado.getAutor().getNome())){%>
+                            <option><%= autor.getNome() %></option>
+                        <%}%>
+
                     <%}%>
                 </select>
             </div>
@@ -82,8 +87,13 @@
             <div class="form-group">
                 <label for="status">Status</label>
                 <select class="custom-select" name="status" id="status">
+                    <option selected="selected"><%= livroSelecionado.getStatus() %></option>
                     <% for (StatusLivro statusLivro : statusLivros) { %>
-                    <option value="<%= statusLivro %>"><%= statusLivro %></option>
+
+                        <% if (!statusLivro.equals(livroSelecionado.getStatus())){%>
+                        <option value="<%= statusLivro %>"><%= statusLivro %></option>
+                        <%}%>
+
                     <% } %>
                 </select>
             </div>
