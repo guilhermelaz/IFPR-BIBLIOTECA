@@ -1,0 +1,44 @@
+INSERT INTO usuarios (id, nome, email, senha, tipo) VALUES (1, 'admin', 'admin@admin.com', 'admin', 'ADMINISTRADOR');
+
+insert into autores (id, nome) values (1, 'Kleon Chretien');
+insert into autores (id, nome) values (2, 'Bee Hawkswood');
+insert into autores (id, nome) values (3, 'Nike Baldin');
+insert into autores (id, nome) values (4, 'Edward Gurnett');
+insert into autores (id, nome) values (5, 'Shanna Costa');
+insert into autores (id, nome) values (6, 'Abbot Izatson');
+insert into autores (id, nome) values (7, 'Tuckie Presland');
+insert into autores (id, nome) values (8, 'Andy Drivers');
+insert into autores (id, nome) values (9, 'Waverley Christal');
+insert into autores (id, nome) values (10, 'Thorin Catley');
+
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (1, 'Alien Hunter', 9, '2023-03-11', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (2, 'Hospital, The', 1, '2023-03-18', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (3, 'Hansel & Gretel Get Baked', 8, '2023-02-04', 'INDISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (4, 'Richard III', 4, '2023-03-18', 'EMPRESTADO');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (5, 'Hard Candy', 7, '2022-12-22', 'INDISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (6, 'Blood Money', 3, '2022-08-12', 'INDISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (7, 'Stuck Between Stations', 4, '2023-05-03', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (8, '976-EVIL II', 1, '2022-10-19', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (9, 'Garden Party', 4, '2023-01-07', 'EMPRESTADO');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (10, 'Snug as a Bug (U Pana Boga za piecem)', 8, '2022-07-04', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (11, 'Nightwing', 5, '2022-06-27', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (12, 'Snipes', 9, '2023-02-22', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (13, 'Before the Revolution (Prima della rivoluzione)', 6, '2023-03-11', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (14, 'Black Coal, Thin Ice (Bai ri yan huo)', 1, '2023-01-27', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (15, 'First Kid', 3, '2022-10-27', 'EMPRESTADO');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (16, 'Love (Szerelem)', 7, '2023-02-26', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (17, 'Living with Michael Jackson', 5, '2023-05-16', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (18, 'Cover-Up', 10, '2022-10-02', 'EMPRESTADO');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (19, 'Bachelor Party', 1, '2022-08-25', 'EMPRESTADO');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (20, 'Arizona', 4, '2022-07-23', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (21, 'Boulevard', 9, '2023-03-04', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (22, 'Bill Bailey: Tinselworm', 6, '2022-09-25', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (23, 'Jimmy''s Hall', 9, '2022-10-07', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (24, 'Pyromaniac''s Love Story, A', 9, '2023-05-31', 'INDISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (25, 'Chairman of the Board', 6, '2023-05-01', 'EMPRESTADO');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (26, 'Viking, The', 2, '2023-04-09', 'EMPRESTADO');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (27, 'Kings of Pastry (Les rois de la pâtisserie)', 5, '2023-01-12', 'DISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (28, 'Serial', 7, '2023-03-30', 'INDISPONIVEL');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (29, 'Horror Planet (a.k.a. Inseminoid)', 9, '2022-09-03', 'EMPRESTADO');
+insert into livros (id, nome, id_autor, dataDeCriacao, status) values (30, 'Brothers, The', 5, '2022-07-25', 'EMPRESTADO');
+
