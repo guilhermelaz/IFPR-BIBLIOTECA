@@ -12,16 +12,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <title>Cadastro de Livros</title>
+    <title>Novo usuário</title>
 </head>
 <body>
 
 <%
-    List<Autor> autores = (List<Autor>) request.getAttribute("autores");
     Usuario user = (Usuario) request.getSession().getAttribute("user");
-
-    List<StatusLivro> statusLivros = (List<StatusLivro>) request.getAttribute("statusLivros");
-    Livro livroSelecionado = (Livro) request.getAttribute("livroSelecionado");
+    Usuario usuarioSelecionado = (Usuario) request.getAttribute("usuarioSelecionado");
 %>
 
 
@@ -58,51 +55,59 @@
 
     <br>
 
-    <h1><%= "Edição de livro." %></h1>
+    <h1><%= "Usuarios" %></h1>
 
     <br>
 
     <div class="border rounded p-4">
         <h4 class="mb-3"></h4>
-        <form action="/biblioteca/editar?id=<%=livroSelecionado.getId()%>" method="POST">
+        <form action="/biblioteca/editar-usuario" method="POST">
+
             <div class="form-group">
-                <label for="livroNome">Nome do livro:</label>
-                <input type="text" class="form-control" name="livroNome" id="livroNome" placeholder="Nome do livro" value="<%= livroSelecionado.getNome() %>">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" name="nome" id="nome" value="<%usuarioSelecionado.getNome()%>">
             </div>
             <br>
+
             <div class="form-group">
-                <label for="Autor">Autor</label>
-                <select class="custom-select" name="Autor" id="Autor" >
-                        <option selected="selected"><%= livroSelecionado.getAutor().getNome() %></option>
-                    <% for (Autor autor : autores) { %>
-
-                        <% if (!autor.getNome().equals(livroSelecionado.getAutor().getNome())){%>
-                            <option><%= autor.getNome() %></option>
-                        <%}%>
-
-                    <%}%>
-                </select>
+                <label for="nome">Email:</label>
+                <input type="email" class="form-control" name="email" id="email" value="<%usuarioSelecionado.getEmail()%>">
             </div>
             <br>
+
+
             <div class="form-group">
-                <label for="status">Status</label>
-                <select class="custom-select" name="status" id="status">
-                    <option selected="selected"><%= livroSelecionado.getStatus() %></option>
-                    <% for (StatusLivro statusLivro : statusLivros) { %>
-
-                        <% if (!statusLivro.equals(livroSelecionado.getStatus())){%>
-                        <option value="<%= statusLivro %>"><%= statusLivro %></option>
-                        <%}%>
-
-                    <% } %>
-                </select>
+                <label for="nome">Senha atual:</label>
+                <input type="password" class="form-control" name="senha" id="senha">
             </div>
+
+            <div class="form-group">
+                <label for="nome">Nova senha:</label>
+                <input type="password" class="form-control" name="novaSenha" id="novaSenha">
+            </div>
+
+            <div class="form-group">
+                <label for="nome">Confirmar nova senha:</label>
+                <input type="password" class="form-control" name="confirmarNovaSenha" id="confirmarNovaSenha">
+            </div>
+
+            <% if(user.getTipo().equals("ADMINISTRADOR")){%>
+                <div>
+                    <label for="tipo">Tipo:</label>
+                    <select name="tipo" id="tipo">
+                        <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+                        <option selected value="USUARIO">Leitor</option>
+                    </select>
+                </div>
+            <%}%>
+
 
             <br>
 
-            <button type="submit" class="btn btn-success">Salvar</button>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
 
         </form>
+        <br>
     </div>
 
 
@@ -115,6 +120,10 @@
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </body>
 </html>

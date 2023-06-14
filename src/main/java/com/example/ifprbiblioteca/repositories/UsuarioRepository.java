@@ -26,7 +26,7 @@ public class UsuarioRepository {
         return usuario;
     }
 
-    public Usuario findById(Long id){
+    public Usuario findById(Integer id){
 
         Usuario usuario = entityManager.find(Usuario.class, id);
 
@@ -60,6 +60,13 @@ public class UsuarioRepository {
         transaction.commit();
 
         return usuario;
+    }
+
+    public void removeById(Integer id){
+        transaction.begin();
+        Usuario usuario = findById(id);
+        entityManager.remove(usuario);
+        transaction.commit();
     }
 
     public Usuario findByEmail(String email){

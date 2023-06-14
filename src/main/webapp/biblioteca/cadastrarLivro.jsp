@@ -29,25 +29,25 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="caminho/do/logo.png" alt="Logo">
+            <a class="navbar-brand" href="/biblioteca">
+                <img src="" alt="Logo">
             </a>
             <div class="navbar-collapse justify-content-end">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/logout">
                             <i class="fas fa-sign-out-alt"></i> Sair
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/u/conta">
                             <i class="fas fa-cog"></i> Configuração da conta
                         </a>
                     </li>
-                    <% if (user.getEmail().equals("admin@admin.com")) { %>
+                    <% if (user.getTipo().equals("ADMINISTRADOR")) { %>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-user-plus"></i> Cadastrar Usuário
+                        <a class="nav-link" href="/biblioteca/novo-usuario">
+                            <i class="fas fa-user-plus"></i> Usuários
                         </a>
                     </li>
                     <% } %>

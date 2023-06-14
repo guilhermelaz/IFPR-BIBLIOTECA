@@ -12,20 +12,13 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-  <title>Biblioteca IFPR</title>
+  <title>Novo usuário</title>
 </head>
 <body>
 
 <%
-  List<Livro> livros = (List<Livro>) request.getAttribute("livros");
-  List<Autor> autores = (List<Autor>) request.getAttribute("autores");
   Usuario user = (Usuario) request.getSession().getAttribute("user");
-
-  boolean isAdmin = false;
-  if (user.getTipo().equals("ADMINISTRADOR")) {
-    isAdmin = true;
-  }
-
+  List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
 %>
 
 
@@ -60,53 +53,73 @@
     </div>
   </nav>
 
-<h1><%="Biblioteca."%></h1>
-<br/>
+  <br>
 
-<!--Tabela -->
+  <h1><%= "Usuarios" %></h1>
 
-    <% if (isAdmin) {%>
-      <div class="table-toolbar">
-        <a class="btn btn-primary" href="/biblioteca/cadastrar-livro">
-          <i class="fas fa-plus"></i> Adicionar livro
-        </a>
+  <br>
+
+  <div class="border rounded p-4">
+    <h4 class="mb-3"></h4>
+    <form action="/biblioteca/novo-usuario" method="POST">
+
+      <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input type="text" class="form-control" name="nome" id="nome">
       </div>
-    <%}%>
-    <!--<button class="btn btn-success" data-modal-target="modalAutor">
-      <i class="fas fa-plus"></i> Cadastrar Autor
-    </button>-->
+      <br>
 
+      <div class="form-group">
+        <label for="nome">Email:</label>
+        <input type="email" class="form-control" name="email" id="email">
+      </div>
+      <br>
 
-<br>
+      <div class="form-group">
+        <label for="nome">Senha:</label>
+        <input type="password" class="form-control" name="senha" id="senha">
+      </div>
+      <br>
 
-<table class="table table-bordered rounded">
-  <thead class="thead-dark">
-  <tr>
-    <th>Id</th>
-    <th>Nome</th>
-    <th>Data de criação</th>
-    <th>Autor</th>
-    <th>Status</th>
-    <th>Ações</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% for (Livro livro : livros) { %>
-  <tr>
-    <td><%=livro.getId()%></td>
-    <td><%=livro.getNome()%></td>
-    <td><%=livro.getDataDeCriacao()%></td>
-    <td><%=livro.getAutor().getNome()%></td>
-    <td><%=livro.getStatus()%></td>
-    <td>
-      <% if (isAdmin){%>
+      <div class="form-group">
+        <label for="tipo">Tipo:</label>
+        <select class="custom-select" name="tipo" id="tipo">
+          <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+          <option selected value="USUARIO">Leitor</option>
+        </select>
+      </div>
+      <br>
 
-      <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal<%= livro.getId() %>"><i class="fa fa-trash"></i> Deletar</button>
-      <div class="modal fade" id="confirmDeleteModal<%= livro.getId() %>" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel<%= livro.getId() %>" aria-hidden="true">
+      <button type="submit" class="btn btn-success">Cadastrar</button>
+
+    </form>
+
+    <br>
+
+    <table class="table table-bordered rounded">
+      <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% if (usuarios != null && !usuarios.isEmpty()) { %>
+        <% for (Usuario usuario : usuarios) { %>
+        <tr>
+          <td><%= usuario.getNome() %></td>
+          <td><%= usuario.getEmail() %></td>
+          <td>
+            <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal<%=usuario.getId()%>"><i class="fa fa-trash"></i> Deletar</a>
+            <a href="/biblioteca/editar-usuario?id=<%=usuario.getId()%>" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
+          </td>
+        </tr>
+      <div class="modal fade" id="confirmDeleteModal<%=usuario.getId()%>" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel<%=usuario.getId()%>" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="confirmDeleteModalLabel<%= livro.getId() %>">Confirmar Exclusão</h5>
+              <h5 class="modal-title" id="confirmDeleteModalLabel<%=usuario.getId()%>">Confirmar Exclusão</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -116,34 +129,20 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <a href="/biblioteca/excluir?id=<%= livro.getId() %>" class="btn btn-danger">Excluir</a>
+              <a href="/biblioteca/excluir-usuario?id=<%=usuario.getId()%>" class="btn btn-danger">Excluir</a>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- <a href="/biblioteca/excluir?id=<%=livro.getId()%>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Deletar</a> -->
 
-      <a href="/biblioteca/editar?id=<%=livro.getId()%>" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
+        <%}%>
       <%}%>
-
-      <% if (livro.getStatus().equals(StatusLivro.DISPONIVEL)){%>
-      <button href="/biblioteca/reservar?id=<%=livro.getId()%>" class="btn btn-success btn-sm"><i class="fas fa-book"></i> Reservar</button>
-      <%} else if (livro.getStatus().equals(StatusLivro.INDISPONIVEL)){%>
-      <button href="#" class="btn btn-secondary btn-sm"><i class="fas fa-book"></i> Indisponível</button>
-      <%} else if (livro.getStatus().equals(StatusLivro.EMPRESTADO) && (isAdmin || (livro.getUsuario() != null && livro.getUsuario().getEmail().equals(user.getEmail())))) { %>
-      <button href="#" class="btn btn-danger btn-sm"><i class="fas fa-book"></i> Devolver</button>
-      <% } %>
+      </tbody>
+    </table>
 
 
-
-
-    </td>
-  </tr>
-  <% } %>
-  </tbody>
-</table>
-
+  </div>
 
 
 
