@@ -32,7 +32,7 @@
 <div class="container">
     <div class="login-container">
         <h1 class="text-center mb-4">Login</h1>
-        <form method="POST" action="login">
+        <form method="POST" action="/u/login">
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" class="form-control" id="email" name="email">
@@ -48,6 +48,10 @@
             <button type="submit" class="btn btn-primary btn-block">Login</button>
         </form>
         <small class="text-muted mt-3">Não tem uma conta? Peça para um administrador do sistema realizar o cadastro.</small>
+        <p class="text-muted mt-3">Login administrador ‘master’:</p>
+        <p class="text-muted mt-3">E-mail: admin@admin.com</p>
+        <p class="text-muted mt-3">Usuario: admin</p>
+        <p class="text-muted mt-3">Senha: admin</p>
         <!--<small class="text-muted mt-3">Não tem uma conta? <a href="">Crie uma agora</a>.</small><br>-->
     </div>
 </div>

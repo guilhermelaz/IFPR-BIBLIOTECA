@@ -14,12 +14,11 @@ public class Index extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/login");
-        } else {
-
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
+//        if (request.getSession().getAttribute("user") == null) {
+//            response.sendRedirect("/u/login");
+//        } else {
+            request.getRequestDispatcher("loginPage.jsp").forward(request, response);
+//        }
     }
 
     @Override
