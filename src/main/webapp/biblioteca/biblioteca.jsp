@@ -23,7 +23,9 @@
 %>
 
 <div class="container">
+
 <%@include file="../navbar.jsp"%>
+
 <h1><%="Biblioteca."%></h1>
 <br>
 

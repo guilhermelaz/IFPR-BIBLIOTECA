@@ -13,12 +13,18 @@ public class ServletExcluirUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        try {
             String id = request.getParameter("id");
 
             UsuarioRepository usuarioRepository = new UsuarioRepository();
             usuarioRepository.removeById(Integer.parseInt(id));
 
-            response.sendRedirect("/u/usuarios");
+            request.setAttribute("mensagem", "Usuário excluído com sucesso.");
+
+        } catch (Exception e) {
+            request.setAttribute("mensagem","Erro ao excluir o usuário: " + e.getMessage() + "\nContate um administrador para conseguir ajuda.");
+        }
+        request.getRequestDispatcher("/u/usuarios").forward(request, response);
     }
 
     @Override

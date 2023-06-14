@@ -19,7 +19,7 @@ public class ServletCadastrarLivro extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/login");
+            response.sendRedirect("/u/login");
         } else {
             AutorRepository autorRepository = new AutorRepository();
             List<Autor> autores = autorRepository.findAll();

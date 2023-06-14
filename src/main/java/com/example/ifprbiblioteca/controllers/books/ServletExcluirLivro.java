@@ -12,12 +12,16 @@ public class ServletExcluirLivro extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String id = request.getParameter("id");
+        if (request.getSession().getAttribute("user") == null) {
+            response.sendRedirect("/u/login");
+        } else {
+            String id = request.getParameter("id");
 
-        LivroRepository livroRepository = new LivroRepository();
-        livroRepository.removeById(Integer.parseInt(id));
+            LivroRepository livroRepository = new LivroRepository();
+            livroRepository.removeById(Integer.parseInt(id));
 
-        response.sendRedirect("/biblioteca");
+            response.sendRedirect("/biblioteca");
+        }
     }
 
     @Override
