@@ -12,23 +12,20 @@ import java.io.IOException;
 public class ServletExcluirUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        try {
+        if (request.getSession().getAttribute("user") == null) {
+            response.sendRedirect("/login");
+        } else {
             String id = request.getParameter("id");
-
             UsuarioRepository usuarioRepository = new UsuarioRepository();
-            usuarioRepository.removeById(Integer.parseInt(id));
 
-            request.setAttribute("mensagem", "Usuário excluído com sucesso.");
+            try {
+                usuarioRepository.removeById(Integer.parseInt(id));
+                request.setAttribute("mensagem", "Usuário excluído com sucesso.");
+            } catch (Exception e) {
+                request.setAttribute("mensagem", "Erro ao excluir o usuário: " + e.getMessage());
+            }
 
-        } catch (Exception e) {
-            request.setAttribute("mensagem","Erro ao excluir o usuário: " + e.getMessage() + "\nContate um administrador para conseguir ajuda.");
+            request.getRequestDispatcher("/u/usuarios").forward(request, response);
         }
-        request.getRequestDispatcher("/u/usuarios").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

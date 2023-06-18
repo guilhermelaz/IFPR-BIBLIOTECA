@@ -10,14 +10,7 @@ import java.io.IOException;
 public class ServletLogout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
             request.getSession().invalidate();
-
             response.sendRedirect("/u/login");
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

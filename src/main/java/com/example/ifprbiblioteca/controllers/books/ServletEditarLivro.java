@@ -18,25 +18,23 @@ import java.util.List;
 public class ServletEditarLivro extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/u/login");
         } else {
-
             String id = request.getParameter("id");
 
             LivroRepository livroRepository = new LivroRepository();
+            AutorRepository autorRepository = new AutorRepository();
+
             Livro livroSelecionado = livroRepository.findById(Integer.parseInt(id));
 
             request.setAttribute("livroSelecionado", livroSelecionado);
 
-            // Coisas do select
-            AutorRepository autorRepository = new AutorRepository();
             List<Autor> autores = autorRepository.findAll();
-            request.setAttribute("autores", autores);
             List<StatusLivro> statusLivros = Arrays.asList(StatusLivro.values());
+
             request.setAttribute("statusLivros", statusLivros);
-            // // //
+            request.setAttribute("autores", autores);
 
             request.getRequestDispatcher("editar-livro.jsp").forward(request, response);
         }
@@ -50,13 +48,10 @@ public class ServletEditarLivro extends HttpServlet {
             String nome = request.getParameter("livroNome");
             String autorNome = request.getParameter("Autor");
 
-
             LivroRepository livroRepository = new LivroRepository();
             AutorRepository autorRepository = new AutorRepository();
 
-
             Autor autorSelecionado = autorRepository.findByName(autorNome);
-
 
             String statusSelecionado = request.getParameter("status");
             StatusLivro status = StatusLivro.valueOf(statusSelecionado);

@@ -1,4 +1,3 @@
-<%@ page import="com.example.ifprbiblioteca.models.Usuario" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
@@ -19,6 +18,10 @@
         <div class="navbar-collapse justify-content-end">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
+                    <a class="nav-link"><%= currentUser.getNome()%></a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" href="/u/logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
                 </li>
 
@@ -28,11 +31,11 @@
                 </li>
                 <%}%>
 
-                <% if (!isAdmin){%>
-                <li class="nav-item">
-                    <a class="nav-link" href="/u/editar-usuario"><i class="fas fa-cog"></i> Minha conta</a>
-                </li>
-                <%}%>
+<%--                <% if (!isAdmin){%>--%>
+<%--                <li class="nav-item">--%>
+<%--                    <a class="nav-link" href="/u/editar-usuario"><i class="fas fa-cog"></i> Minha conta</a>--%>
+<%--                </li>--%>
+<%--                <%}%>--%>
                 <!--
                 <li class="nav-item">
                   <a class="nav-link" href="/biblioteca/usuarios">

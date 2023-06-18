@@ -23,33 +23,28 @@ public class ServletCadastrarLivro extends HttpServlet {
         } else {
             AutorRepository autorRepository = new AutorRepository();
             List<Autor> autores = autorRepository.findAll();
+            List<StatusLivro> statusLivros = Arrays.asList(StatusLivro.values());
+
+            request.setAttribute("statusLivros", statusLivros);
             request.setAttribute("autores", autores);
 
-            List<StatusLivro> statusLivros = Arrays.asList(StatusLivro.values());
-            request.setAttribute("statusLivros", statusLivros);
-
-            request.getRequestDispatcher("cadastrar-livro.jsp").forward(request, response);
+            request.getRequestDispatcher("/biblioteca/cadastrar-livro.jsp").forward(request, response);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
         } else {
-            String nome = request.getParameter("livroNome");
-            String autorNome = request.getParameter("Autor");
-
-
             LivroRepository livroRepository = new LivroRepository();
             AutorRepository autorRepository = new AutorRepository();
 
+            String nome = request.getParameter("livroNome");
+            String autorNome = request.getParameter("Autor");
+            String statusSelecionado = request.getParameter("status");
 
             Autor autorSelecionado = autorRepository.findByName(autorNome);
-
-
-            String statusSelecionado = request.getParameter("status");
             StatusLivro status = StatusLivro.valueOf(statusSelecionado);
 
             Livro novoLivro = new Livro();
@@ -63,6 +58,5 @@ public class ServletCadastrarLivro extends HttpServlet {
             response.sendRedirect("/biblioteca");
         }
     }
-
-    }
+}
 

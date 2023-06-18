@@ -13,20 +13,19 @@ import java.io.IOException;
 public class ServletDevolverLivro extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LivroRepository livroRepository = new LivroRepository();
-        String id = request.getParameter("id");
+        if (request.getSession().getAttribute("user") == null) {
+            response.sendRedirect("/u/login");
+        } else {
+            String id = request.getParameter("id");
+            LivroRepository livroRepository = new LivroRepository();
 
-        Livro livroDevolver = livroRepository.findById(Integer.parseInt(id));
-        livroDevolver.setStatus(StatusLivro.DISPONIVEL);
-        livroDevolver.setUsuario(null);
+            Livro livroDevolver = livroRepository.findById(Integer.parseInt(id));
+            livroDevolver.setStatus(StatusLivro.DISPONIVEL);
+            livroDevolver.setUsuario(null);
 
-        livroRepository.update(livroDevolver);
+            livroRepository.update(livroDevolver);
 
-        response.sendRedirect("/biblioteca");
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+            response.sendRedirect("/biblioteca");
+        }
     }
 }

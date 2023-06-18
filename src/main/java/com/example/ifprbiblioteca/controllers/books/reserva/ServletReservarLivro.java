@@ -14,10 +14,11 @@ import java.io.IOException;
 public class ServletReservarLivro extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-            LivroRepository livroRepository = new LivroRepository();
+        if (request.getSession().getAttribute("user") == null) {
+            response.sendRedirect("/u/login");
+        } else {
             String id = request.getParameter("id");
-
+            LivroRepository livroRepository = new LivroRepository();
 
             Livro livroReservar = livroRepository.findById(Integer.parseInt(id));
             livroReservar.setStatus(StatusLivro.EMPRESTADO);
@@ -26,13 +27,6 @@ public class ServletReservarLivro extends HttpServlet {
             livroRepository.update(livroReservar);
 
             response.sendRedirect("/biblioteca");
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-
-
+        }
     }
 }

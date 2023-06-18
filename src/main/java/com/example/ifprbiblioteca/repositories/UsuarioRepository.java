@@ -1,6 +1,7 @@
 package com.example.ifprbiblioteca.repositories;
 
 import com.example.ifprbiblioteca.connection.ConnectionFactory;
+import com.example.ifprbiblioteca.models.Livro;
 import com.example.ifprbiblioteca.models.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -62,11 +63,15 @@ public class UsuarioRepository {
         return usuario;
     }
 
-    public void removeById(Integer id){
+    public void removeById(Integer id) throws Exception {
         transaction.begin();
-        Usuario usuario = findById(id);
-        entityManager.remove(usuario);
-        transaction.commit();
+        Usuario usuario = this.findById(id);
+        try {
+            entityManager.remove(usuario);
+            transaction.commit();
+        } catch (Exception e) {
+            throw new Exception("Não foi possível remover o usuário: Usuário contém livro(s) emprestado(s)");
+        }
     }
 
     public Usuario findByEmail(String email){
@@ -77,6 +82,12 @@ public class UsuarioRepository {
 
     public List<Usuario> findAll(){
         return entityManager.createQuery("SELECT u FROM usuarios u", Usuario.class).getResultList();
+    }
+
+    public List<Livro> findUserLivros (Integer id){
+        return entityManager.createQuery("SELECT l FROM livros l WHERE l.usuario = :id", Livro.class)
+                .setParameter("id", id)
+                .getResultList();
     }
 
 

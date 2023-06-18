@@ -11,13 +11,15 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        request.getRequestDispatcher("/loginPage.jsp").forward(request, response);
+        if (request.getSession().getAttribute("user") != null) {
+            response.sendRedirect("/biblioteca");
+        } else {
+            request.getRequestDispatcher("/loginPage.jsp").forward(request, response);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String email = request.getParameter("email");
         String user = request.getParameter("user");
         String senha = request.getParameter("senha");
@@ -26,11 +28,14 @@ public class LoginServlet extends HttpServlet {
 
         try{
             loginService.validateLogin(email, user, senha, request);
-            response.sendRedirect("/biblioteca");
         } catch (Exception e) {
-            String msg = e.getMessage();
-            response.sendRedirect("/login" + msg);
+            String mensagem = "Erro no login: " + e.getMessage();
+            request.setAttribute("mensagem", mensagem);
+            request.getRequestDispatcher("/loginPage.jsp").forward(request, response);
+        }
+
+        if (request.getSession().getAttribute("user") != null) {
+            response.sendRedirect("/biblioteca");
         }
     }
-
 }

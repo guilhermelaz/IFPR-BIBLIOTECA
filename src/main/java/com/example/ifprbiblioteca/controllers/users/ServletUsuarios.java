@@ -14,14 +14,16 @@ public class ServletUsuarios extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        if (request.getSession().getAttribute("user") == null) {
+            response.sendRedirect("/u/login");
+        } else {
             UsuarioRepository usuarioRepository = new UsuarioRepository();
-
             List<Usuario> usuarios = usuarioRepository.findAll();
 
             request.setAttribute("usuarios", usuarios);
 
             request.getRequestDispatcher("/usuarios/usuarios.jsp").forward(request, response);
-
+        }
     }
 
     @Override
@@ -39,6 +41,16 @@ public class ServletUsuarios extends HttpServlet {
         novoUsuario.setEmail(email);
         novoUsuario.setSenha(senha);
         novoUsuario.setTipo(tipo);
+
+
+
+        Usuario usuarioComparacao = usuarioRepository.findByEmail(email);
+
+        if (usuarioComparacao != null){
+            String mensagem = "Erro: Já cadastrado!";
+            request.setAttribute("mensagem", mensagem);
+            request.getRequestDispatcher("/usuarios/usuarios.jsp").forward(request, response);
+        }
 
         usuarioRepository.create(novoUsuario);
 

@@ -21,40 +21,42 @@ public class ServletEditarUsuario extends HttpServlet {
             Usuario usuarioSelecionado = usuarioRepository.findById(Integer.parseInt(id));
 
             request.setAttribute("usuarioSelecionado", usuarioSelecionado);
-            request.getRequestDispatcher("editar-usuario.jsp").forward(request, response);
+
+            request.getRequestDispatcher("/usuarios/editar-usuario.jsp").forward(request, response);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
-        String nome = request.getParameter("nome");
-        String email = request.getParameter("email");
-        String tipo = request.getParameter("tipo");
-        String senha = request.getParameter("senha");
-        String senhaNova = request.getParameter("novaSenha");
-        String senhaNovaConfirmacao = request.getParameter("confirmarNovaSenha");
+        if (request.getSession().getAttribute("user") == null) {
+            response.sendRedirect("/login");
+        } else {
+            String id = request.getParameter("id");
+            String nome = request.getParameter("nome");
+            String email = request.getParameter("email");
+            String tipo = request.getParameter("tipo");
+            String senha = request.getParameter("senha");
+            String senhaNova = request.getParameter("novaSenha");
+            String senhaNovaConfirmacao = request.getParameter("confirmarNovaSenha");
 
-        UsuarioRepository usuarioRepository = new UsuarioRepository();
+            UsuarioRepository usuarioRepository = new UsuarioRepository();
 
-        Usuario usuarioSelecionado = usuarioRepository.findById(Integer.parseInt(id));
+            Usuario usuarioSelecionado = usuarioRepository.findById(Integer.parseInt(id));
 
-        usuarioSelecionado.setNome(nome);
-        usuarioSelecionado.setEmail(email);
-
-        if (senha.equals(usuarioSelecionado.getSenha()) && senhaNova.equals(senhaNovaConfirmacao)) {
-            usuarioSelecionado.setSenha(senhaNova);
-        }
-
-        if (!usuarioSelecionado.getTipo().equals(tipo)) {
-            Usuario uAdmCheck = (Usuario) request.getSession().getAttribute("user");
-            if (uAdmCheck.getTipo().equals("ADMINISTRADOR")) {
-                usuarioSelecionado.setTipo(tipo);
+            usuarioSelecionado.setNome(nome);
+            usuarioSelecionado.setEmail(email);
+            if (senha.equals(usuarioSelecionado.getSenha()) && senhaNova.equals(senhaNovaConfirmacao)) {
+                usuarioSelecionado.setSenha(senhaNova);
             }
+            if (!usuarioSelecionado.getTipo().equals(tipo)) {
+                Usuario uAdmCheck = (Usuario) request.getSession().getAttribute("user");
+                if (uAdmCheck.getTipo().equals("ADMINISTRADOR")) {
+                    usuarioSelecionado.setTipo(tipo);
+                }
+            }
+            usuarioRepository.update(usuarioSelecionado);
+
+            response.sendRedirect("/u/usuarios");
         }
-
-        usuarioRepository.update(usuarioSelecionado);
-
-        response.sendRedirect("/biblioteca/usuarios");
     }
 }
