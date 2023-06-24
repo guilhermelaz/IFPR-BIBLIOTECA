@@ -18,6 +18,9 @@ public class ServletBiblioteca extends HttpServlet {
             LivroRepository livroRepository = new LivroRepository();
             List<Livro> livros = livroRepository.findAll();
 
+            String mensagem = (String) request.getParameter("mensagem");
+            request.setAttribute("mensagem", mensagem);
+
             AutorRepository autorRepository = new AutorRepository();
             List<Autor> autores = autorRepository.findAll();
 
