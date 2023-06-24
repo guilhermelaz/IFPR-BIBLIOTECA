@@ -18,9 +18,6 @@ import java.util.List;
 public class ServletCadastrarLivro extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/u/login");
-        } else {
             AutorRepository autorRepository = new AutorRepository();
             List<Autor> autores = autorRepository.findAll();
             List<StatusLivro> statusLivros = Arrays.asList(StatusLivro.values());
@@ -29,14 +26,11 @@ public class ServletCadastrarLivro extends HttpServlet {
             request.setAttribute("autores", autores);
 
             request.getRequestDispatcher("/biblioteca/cadastrar-livro.jsp").forward(request, response);
-        }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/login");
-        } else {
             LivroRepository livroRepository = new LivroRepository();
             AutorRepository autorRepository = new AutorRepository();
 
@@ -57,6 +51,5 @@ public class ServletCadastrarLivro extends HttpServlet {
 
             response.sendRedirect("/biblioteca");
         }
-    }
 }
 

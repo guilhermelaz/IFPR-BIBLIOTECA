@@ -15,9 +15,6 @@ import java.util.List;
 public class ServletBiblioteca extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/u/login");
-        } else {
             LivroRepository livroRepository = new LivroRepository();
             List<Livro> livros = livroRepository.findAll();
 
@@ -29,5 +26,4 @@ public class ServletBiblioteca extends HttpServlet {
 
             request.getRequestDispatcher("/biblioteca/biblioteca.jsp").forward(request, response);
         }
-    }
 }

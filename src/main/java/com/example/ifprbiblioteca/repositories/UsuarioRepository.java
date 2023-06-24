@@ -66,18 +66,18 @@ public class UsuarioRepository {
     public void removeById(Integer id) throws Exception {
         transaction.begin();
         Usuario usuario = this.findById(id);
-        try {
-            entityManager.remove(usuario);
-            transaction.commit();
-        } catch (Exception e) {
-            throw new Exception("Não foi possível remover o usuário: Usuário contém livro(s) emprestado(s)");
-        }
+        entityManager.remove(usuario);
+        transaction.commit();
     }
 
     public Usuario findByEmail(String email){
-        return entityManager.createQuery("SELECT u FROM usuarios u WHERE u.email = :email", Usuario.class)
-                .setParameter("email", email)
-                .getSingleResult();
+        try {
+            return entityManager.createQuery("SELECT u FROM usuarios u WHERE u.email = :email", Usuario.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public List<Usuario> findAll(){

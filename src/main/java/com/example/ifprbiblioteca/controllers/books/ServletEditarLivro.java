@@ -18,9 +18,6 @@ import java.util.List;
 public class ServletEditarLivro extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/u/login");
-        } else {
             String id = request.getParameter("id");
 
             LivroRepository livroRepository = new LivroRepository();
@@ -37,14 +34,11 @@ public class ServletEditarLivro extends HttpServlet {
             request.setAttribute("autores", autores);
 
             request.getRequestDispatcher("editar-livro.jsp").forward(request, response);
-        }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/login");
-        } else {
             String nome = request.getParameter("livroNome");
             String autorNome = request.getParameter("Autor");
 
@@ -66,5 +60,4 @@ public class ServletEditarLivro extends HttpServlet {
 
             response.sendRedirect("/biblioteca");
         }
-    }
 }

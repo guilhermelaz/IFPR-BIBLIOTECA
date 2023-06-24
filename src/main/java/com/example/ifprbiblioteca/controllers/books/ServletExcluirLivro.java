@@ -11,9 +11,6 @@ import java.io.IOException;
 public class ServletExcluirLivro extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/u/login");
-        } else {
             String id = request.getParameter("id");
 
             LivroRepository livroRepository = new LivroRepository();
@@ -21,5 +18,4 @@ public class ServletExcluirLivro extends HttpServlet {
 
             response.sendRedirect("/biblioteca");
         }
-    }
 }

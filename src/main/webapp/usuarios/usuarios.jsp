@@ -97,7 +97,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <p>Tem certeza de que deseja excluir esse livro?</p>
+              <p>Tem certeza de que deseja excluir esse usuario?</p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

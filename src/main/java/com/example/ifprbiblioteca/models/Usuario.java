@@ -63,6 +63,21 @@ public class Usuario {
         this.tipo = tipo;
     }
 
+    public List<Livro> getLivrosEmprestados() {
+        try {
+            return this.livrosEmprestados;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public void setLivroEmprestado(Livro livro) {
+        this.livrosEmprestados.add(livro);
+    }
+
+    public void removeLivroEmprestado(Livro livro) {
+        this.livrosEmprestados.remove(livro);
+    }
 
     @Override
     public boolean equals(Object o) {

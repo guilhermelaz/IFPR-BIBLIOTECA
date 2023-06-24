@@ -4,4 +4,5 @@ public enum StatusLivro {
     DISPONIVEL,
     EMPRESTADO,
     INDISPONIVEL;
+
 }
