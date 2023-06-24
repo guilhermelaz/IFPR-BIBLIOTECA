@@ -5,7 +5,6 @@ Projeto de WEB 3
 - Administrador padrão
 - CRUD usuários
 - CRUD livros
-- CRUD autores
 - Sistema de reservar e devolver livro
 
 
